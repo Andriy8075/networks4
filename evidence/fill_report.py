@@ -26,6 +26,18 @@ def read_text(path: Path, max_chars: int = 3500) -> str:
     return text
 
 
+def console_block(cwd: str, command: str, output: str = "", host: str = "andrii@DESKTOP-7BD93CN") -> str:
+    """Format like Lab2: prompt with path + command + output."""
+    prompt = f"{host}:{cwd}$ {command}"
+    body = (output or "").strip()
+    # If the saved evidence already starts with the same prompt, keep it as-is.
+    if body.startswith(host + ":") or body.startswith("andrii@"):
+        return body
+    if body:
+        return f"{prompt}\n{body}"
+    return prompt
+
+
 def replace_text(paragraph, text):
     if not paragraph.runs:
         paragraph.add_run(text)
@@ -218,8 +230,14 @@ def main():
     one_cell(
         doc,
         (read_text(versions) if versions.exists() else "")
-        + "\nWireshark 4.6.10 (Windows)\nХост-порт проксі: 8080→80\n"
-        "Захоплення: tcpdump -i any у мережевому просторі контейнера (sidecar netshoot / nsenter).",
+        + "\n\n"
+        + console_block(
+            "/mnt/c/Users/Admin/projects/NetworkLabs/lab4/evidence/pcaps",
+            "# аналіз PCAP: Wireshark 4.6.10 (Windows GUI) / tshark",
+            "Wireshark 4.6.10 (Windows)\n"
+            "Хост-порт проксі: 8080→80\n"
+            "Захоплення: tcpdump -i any у мережевому просторі контейнера (sidecar netshoot / nsenter).",
+        ),
     )
     body(
         doc,
@@ -370,8 +388,15 @@ def main():
     label(doc, "Фрагмент коду обробника (lab1/code/app.py):")
     one_cell(
         doc,
-        "visits = r.incr('counter')\n"
-        "return f\"Hello from Flask App! Visit count: {visits}\\n\"",
+        console_block(
+            "/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code",
+            "sed -n '10,16p' app.py",
+            "    try:\n"
+            "        visits = r.incr('counter')\n"
+            "        return f\"Hello from Flask App! Visit count: {visits}\\n\"\n"
+            "    except Exception as e:\n"
+            "        return f\"Database error: {str(e)}\\n\", 500",
+        ),
     )
     label(doc, "Вивід curl під час database.pcap:")
     one_cell(doc, read_text(CONSOLE / "03_curl_database.txt", 900))
@@ -433,14 +458,16 @@ def main():
         "Повторний запит записано у recovered.pcap: знову SYN на порт 8000 і HTTP 200.",
     )
     label(doc, "Відновлення / перевірка:")
-    restore = ""
-    if (CONSOLE / "06_nginx_restore.txt").exists():
-        restore += read_text(CONSOLE / "06_nginx_restore.txt", 1500) + "\n"
-    if (CONSOLE / "06_curl_ok_after_restore.txt").exists():
-        restore += read_text(CONSOLE / "06_curl_ok_after_restore.txt", 800)
-    if (CONSOLE / "07_curl_recovered.txt").exists():
-        restore += "\n" + read_text(CONSOLE / "07_curl_recovered.txt", 900)
-    one_cell(doc, restore or "[немає файлу відновлення]")
+    restore_parts = []
+    for name in (
+        "06_nginx_restore.txt",
+        "06_curl_ok_after_restore.txt",
+        "07_curl_recovered.txt",
+    ):
+        path = CONSOLE / name
+        if path.exists():
+            restore_parts.append(read_text(path, 1500))
+    one_cell(doc, "\n\n".join(restore_parts) if restore_parts else "[немає файлу відновлення]")
     grid(
         doc,
         [

@@ -1,3 +1,4 @@
-=== docker version ===
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker version --format 'Client {{.Client.Version}} / Server {{.Server.Version}}'
 Client 28.0.4 / Server 28.0.4
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker compose version
 Docker Compose version v2.34.0-desktop.1

@@ -1,4 +1,6 @@
-=== app container IPs ===
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ for id in $(docker compose ps -q app); do docker inspect -f '{{.Name}} {{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}' "$id"; done
 /code-app-1 172.30.0.3 172.29.0.2 
 /code-app-2 172.30.0.4 172.29.0.3 
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker network inspect frontend
 code-app-2=172.29.0.3/24 proxy=172.29.0.4/24 code-app-1=172.29.0.2/24 
+

@@ -1,3 +1,4 @@
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker compose logs --tail=50 proxy
 proxy  | 2026/11/20 15:24:14 [notice] 27#27: exit
 proxy  | 2026/11/20 15:24:14 [notice] 34#34: exit
 proxy  | 2026/11/20 15:24:14 [notice] 35#35: exit

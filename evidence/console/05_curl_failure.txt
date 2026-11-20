@@ -1,6 +1,4 @@
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   157  100   157    0     0    99k      0 --:--:-- --:--:-- --:--:--  153k
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ curl -i http://127.0.0.1:8080/
 HTTP/1.1 502 Bad Gateway
 Server: nginx/1.31.6
 Date: Fri, 20 Nov 2026 15:24:42 GMT

@@ -1,3 +1,4 @@
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ # редагування nginx.conf (proxy_pass)
 було:
         proxy_pass http://app:8000;
 стало:

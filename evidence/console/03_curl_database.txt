@@ -1,8 +1,9 @@
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ curl -i http://127.0.0.1:8080/
 HTTP/1.1 200 OK
 Server: nginx/1.31.6
-Date: Fri, 20 Nov 2026 15:24:02 GMT
+Date: Fri, 20 Nov 2026 16:31:19 GMT
 Content-Type: text/html; charset=utf-8
-Content-Length: 39
+Content-Length: 40
 Connection: keep-alive
 
-Hello from Flask App! Visit count: 206
+Hello from Flask App! Visit count: 1821
