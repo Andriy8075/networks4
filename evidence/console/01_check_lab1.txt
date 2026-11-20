@@ -5,19 +5,20 @@ code-app-2   my-app:latest    "python app.py"          app       About an hour a
 db           redis:7-alpine   "docker-entrypoint.s…"   db        About an hour ago   Up About an hour (healthy)   6379/tcp
 proxy        nginx:alpine     "/docker-entrypoint.…"   proxy     About an hour ago   Up About an hour             0.0.0.0:8080->80/tcp
 
-andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}'
-NAMES                IMAGE                     STATUS                       PORTS
-proxy                nginx:alpine              Up About an hour             0.0.0.0:8080->80/tcp
-code-app-1           my-app:latest             Up About an hour (healthy)   8000/tcp
-code-app-2           my-app:latest             Up About an hour (healthy)   8000/tcp
-db                   redis:7-alpine            Up About an hour (healthy)   6379/tcp
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker ps
+CONTAINER ID   IMAGE                     COMMAND                  CREATED             STATUS                       PORTS                              NAMES
+9090d727f9a1   nginx:alpine              "/docker-entrypoint.…"   About an hour ago   Up About an hour             0.0.0.0:8080->80/tcp               proxy
+fcdb1171af29   my-app:latest             "python app.py"          About an hour ago   Up About an hour (healthy)   8000/tcp                           code-app-1
+2d64b208f461   my-app:latest             "python app.py"          About an hour ago   Up About an hour (healthy)   8000/tcp                           code-app-2
+c0756e52ec2d   redis:7-alpine            "docker-entrypoint.s…"   About an hour ago   Up About an hour (healthy)   6379/tcp                           db
+f69c64fe91e7   cleanstart/minio:latest   "/usr/bin/minio serv…"   12 days ago         Up About an hour             0.0.0.0:9000-9001->9000-9001/tcp   construction-minio
 
 andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ curl -i http://127.0.0.1:8080/
 HTTP/1.1 200 OK
 Server: nginx/1.31.6
-Date: Fri, 20 Nov 2026 16:31:19 GMT
+Date: Fri, 20 Nov 2026 16:44:48 GMT
 Content-Type: text/html; charset=utf-8
 Content-Length: 40
 Connection: keep-alive
 
-Hello from Flask App! Visit count: 1819
+Hello from Flask App! Visit count: 2149

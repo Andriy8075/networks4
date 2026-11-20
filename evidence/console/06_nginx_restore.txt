@@ -2,13 +2,13 @@ andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker exec proxy nginx -s reload
-2026/11/20 16:31:20 [notice] 117#117: signal process started
+2026/11/20 16:44:48 [notice] 151#151: signal process started
 andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ curl -i http://127.0.0.1:8080/
 HTTP/1.1 200 OK
 Server: nginx/1.31.6
-Date: Fri, 20 Nov 2026 16:31:20 GMT
+Date: Fri, 20 Nov 2026 16:44:48 GMT
 Content-Type: text/html; charset=utf-8
 Content-Length: 40
 Connection: keep-alive
 
-Hello from Flask App! Visit count: 1822
+Hello from Flask App! Visit count: 2152

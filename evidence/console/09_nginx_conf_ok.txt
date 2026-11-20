@@ -1,0 +1,10 @@
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ cat nginx.conf
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://app:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}

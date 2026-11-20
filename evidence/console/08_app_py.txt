@@ -1,0 +1,20 @@
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ cat app.py
+from flask import Flask
+import redis
+import os
+
+app = Flask(__name__)
+
+db_host = os.environ.get('REDIS_HOST', 'db')
+r = redis.Redis(host=db_host, port=6379)
+
+@app.route('/')
+def hello():
+    try:
+        visits = r.incr('counter')
+        return f"Hello from Flask App! Visit count: {visits}\n"
+    except Exception as e:
+        return f"Database error: {str(e)}\n", 500
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000)

@@ -12,6 +12,7 @@ from docx.shared import Cm, Pt, RGBColor, Twips
 ROOT = Path(r"c:\Users\Admin\projects\NetworkLabs")
 SOURCE = ROOT / "lab2" / "Ашомка_Андрій_ІМ-34_ЛР2.docx"
 TARGET = ROOT / "lab4" / "Ашомка_Андрій_ІМ-34_ЛР4.docx"
+TARGET_FALLBACK = ROOT / "lab4" / "Ашомка_Андрій_ІМ-34_ЛР4_new.docx"
 EVIDENCE = ROOT / "lab4" / "evidence"
 CONSOLE = EVIDENCE / "console"
 SHOTS = EVIDENCE / "shots"
@@ -226,22 +227,14 @@ def main():
         "Захоплення виконувалось у WSL2 Ubuntu з Docker Engine; аналіз PCAP — у Wireshark 4.6.10 на Windows. "
         "Використано стенд ЛР1 без зміни топології мереж frontend (172.29.0.0/24) і backend (172.30.0.0/24).",
     )
-    versions = CONSOLE / "00_versions.txt"
-    one_cell(
-        doc,
-        (read_text(versions) if versions.exists() else "")
-        + "\n\n"
-        + console_block(
-            "/mnt/c/Users/Admin/projects/NetworkLabs/lab4/evidence/pcaps",
-            "# аналіз PCAP: Wireshark 4.6.10 (Windows GUI) / tshark",
-            "Wireshark 4.6.10 (Windows)\n"
-            "Хост-порт проксі: 8080→80\n"
-            "Захоплення: tcpdump -i any у мережевому просторі контейнера (sidecar netshoot / nsenter).",
-        ),
-    )
+    label(doc, "Вивід консолі (Docker):")
+    one_cell(doc, read_text(CONSOLE / "00_versions.txt", 6000))
+    label(doc, "Вивід консолі (Wireshark / tshark):")
+    one_cell(doc, read_text(CONSOLE / "00_wireshark_version.txt", 2000))
     body(
         doc,
-        " Версії та середовище фіксують відтворюваність захоплень і аналізу.",
+        " Хост-порт проксі: 8080→80. Захоплення трафіку виконано через tcpdump -i any "
+        "у мережевому просторі контейнера proxy або db. Версії фіксують відтворюваність аналізу.",
         bold_lead="Інтерпретація.",
     )
 
@@ -264,7 +257,7 @@ def main():
         ],
     )
     label(doc, "Вивід консолі (перевірка стенда):")
-    one_cell(doc, read_text(CONSOLE / "01_check_lab1.txt", 2500))
+    one_cell(doc, read_text(CONSOLE / "01_check_lab1.txt", 4500))
     label(doc, "Знімок інтерфейсу:")
     picture(doc, "01-compose-ps.png")
     picture(doc, "02-curl-ok.png")
@@ -273,7 +266,7 @@ def main():
     label(doc, "DNS dig під час normal.pcap:")
     one_cell(doc, read_text(CONSOLE / "02_dig_app.txt", 800))
     label(doc, "IP контейнерів app (перевірка DNS):")
-    one_cell(doc, read_text(CONSOLE / "02_app_ips.txt", 800))
+    one_cell(doc, read_text(CONSOLE / "02_app_ips.txt", 5000))
     body(
         doc,
         " Підтверджено імена сервісів proxy/app/db, порт хоста 8080 і працездатність шляху "
@@ -385,19 +378,8 @@ def main():
             ["Фрагмент HTTP-тіла (той самий запит)", "Visit count: 206 (див. curl database.pcap)"],
         ],
     )
-    label(doc, "Фрагмент коду обробника (lab1/code/app.py):")
-    one_cell(
-        doc,
-        console_block(
-            "/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code",
-            "sed -n '10,16p' app.py",
-            "    try:\n"
-            "        visits = r.incr('counter')\n"
-            "        return f\"Hello from Flask App! Visit count: {visits}\\n\"\n"
-            "    except Exception as e:\n"
-            "        return f\"Database error: {str(e)}\\n\", 500",
-        ),
-    )
+    label(doc, "Код обробника (lab1/code/app.py):")
+    one_cell(doc, read_text(CONSOLE / "08_app_py.txt", 2000))
     label(doc, "Вивід curl під час database.pcap:")
     one_cell(doc, read_text(CONSOLE / "03_curl_database.txt", 900))
     label(doc, "Знімок інтерфейсу:")
@@ -417,7 +399,9 @@ def main():
         "Клієнт отримав HTTP 502; у PCAP видно SYN на :8080 і RST/ACK у відповідь.",
     )
     label(doc, "Зміна конфігурації «було → стало»:")
-    one_cell(doc, read_text(NGINX / "was_became.txt", 400))
+    one_cell(doc, read_text(NGINX / "was_became.txt", 600))
+    label(doc, "Поточний (відновлений) nginx.conf:")
+    one_cell(doc, read_text(CONSOLE / "09_nginx_conf_ok.txt", 800))
     label(doc, "Перевірка nginx -t:")
     one_cell(doc, read_text(CONSOLE / "04_nginx_t.txt", 600))
     label(doc, "Відповідь curl (очікується 502):")
@@ -504,8 +488,13 @@ def main():
     body(doc, "Дата: ____________________")
 
     TARGET.parent.mkdir(parents=True, exist_ok=True)
-    doc.save(str(TARGET))
-    print(f"Wrote {TARGET}")
+    try:
+        doc.save(str(TARGET))
+        print(f"Wrote {TARGET}")
+    except PermissionError:
+        doc.save(str(TARGET_FALLBACK))
+        print(f"Target locked; wrote {TARGET_FALLBACK}")
+        print("Close the open .docx and rename _new over the main file.")
 
 
 if __name__ == "__main__":
