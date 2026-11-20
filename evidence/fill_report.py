@@ -416,10 +416,15 @@ def main():
     )
     label(doc, "Зміна конфігурації «було → стало»:")
     one_cell(doc, read_text(NGINX / "was_became.txt", 600))
-    label(doc, "Поточний (відновлений) nginx.conf:")
-    one_cell(doc, read_text(CONSOLE / "09_nginx_conf_ok.txt", 800))
-    label(doc, "Перевірка nginx -t:")
-    one_cell(doc, read_text(CONSOLE / "04_nginx_t.txt", 600))
+    label(doc, "Перевірка й застосування помилкової конфігурації (nginx -t і reload):")
+    one_cell(doc, read_text(CONSOLE / "04_nginx_break_reload.txt", 1200))
+    body(
+        doc,
+        " Команда nginx -s reload перезавантажує конфігурацію всередині контейнера proxy "
+        "без зупинки контейнера. Успіх підтверджує рядок signal process started. "
+        "Nginx і далі слухає :80; змінюється лише upstream proxy_pass (app:8080 замість app:8000).",
+        bold_lead="Інтерпретація.",
+    )
     label(doc, "Відповідь curl (очікується 502):")
     one_cell(doc, read_text(CONSOLE / "05_curl_failure.txt", 1200))
     grid(
@@ -457,17 +462,16 @@ def main():
         "Відновлено рядок proxy_pass http://app:8000;, виконано nginx -t і reload. "
         "Повторний запит записано у recovered.pcap: знову SYN на порт 8000 і HTTP 200.",
     )
-    label(doc, "Відновлення / перевірка:")
-    restore_parts = []
-    for name in (
-        "06_nginx_restore.txt",
-        "06_curl_ok_after_restore.txt",
-        "07_curl_recovered.txt",
-    ):
-        path = CONSOLE / name
-        if path.exists():
-            restore_parts.append(read_text(path, 1500))
-    one_cell(doc, "\n\n".join(restore_parts) if restore_parts else "[немає файлу відновлення]")
+    label(doc, "Відновлений nginx.conf:")
+    one_cell(doc, read_text(CONSOLE / "09_nginx_conf_ok.txt", 800))
+    label(doc, "Перевірка й reload після відновлення (nginx -t і nginx -s reload):")
+    one_cell(doc, read_text(CONSOLE / "06_nginx_restore.txt", 2000))
+    body(
+        doc,
+        " Після повернення proxy_pass на app:8000 знову виконано nginx -t і nginx -s reload; "
+        "curl підтверджує HTTP 200.",
+        bold_lead="Інтерпретація.",
+    )
     grid(
         doc,
         [
