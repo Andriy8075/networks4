@@ -1,0 +1,4 @@
+було:
+        proxy_pass http://app:8000;
+стало:
+        proxy_pass http://app:8080;

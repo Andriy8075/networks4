@@ -1,0 +1,11 @@
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    39  100    39    0     0  21299      0 --:--:-- --:--:-- --:--:-- 39000
+HTTP/1.1 200 OK
+Server: nginx/1.31.6
+Date: Fri, 20 Nov 2026 15:24:45 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 39
+Connection: keep-alive
+
+Hello from Flask App! Visit count: 225
