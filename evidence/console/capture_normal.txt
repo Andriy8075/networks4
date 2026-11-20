@@ -1,0 +1,54 @@
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker run -d --name lab4-cap-proxy --network container:proxy -v /mnt/c/Users/Admin/projects/NetworkLabs/lab4/evidence/pcaps:/pcaps nicolaka/netshoot tcpdump -i any -n -U -w /pcaps/normal.pcap
+7b196cba02d453f8cdc4764a31042062f914ebbbda9b00bdded25b5841561022
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker logs lab4-cap-proxy
+tcpdump: WARNING: any: That device doesn't support promiscuous mode
+(Promiscuous mode not supported on the "any" device)
+tcpdump: listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144 bytes
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker run --rm --network container:proxy nicolaka/netshoot dig @127.0.0.11 app
+; <<>> DiG 9.20.23 <<>> @127.0.0.11 app
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 3344
+;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;app.				IN	A
+
+;; ANSWER SECTION:
+app.			600	IN	A	172.29.0.3
+app.			600	IN	A	172.29.0.2
+
+;; Query time: 9 msec
+;; SERVER: 127.0.0.11#53(127.0.0.11) (UDP)
+;; WHEN: Fri Nov 20 21:17:45 UTC 2026
+;; MSG SIZE  rcvd: 59
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ curl -i http://127.0.0.1:8080/
+HTTP/1.1 200 OK
+Server: nginx/1.31.6
+Date: Fri, 20 Nov 2026 21:17:45 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 40
+Connection: keep-alive
+
+Hello from Flask App! Visit count: 2886
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker stop lab4-cap-proxy
+lab4-cap-proxy
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker logs lab4-cap-proxy
+tcpdump: WARNING: any: That device doesn't support promiscuous mode
+(Promiscuous mode not supported on the "any" device)
+tcpdump: listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144 bytes
+24 packets captured
+26 packets received by filter
+0 packets dropped by kernel
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker rm lab4-cap-proxy
+lab4-cap-proxy
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ ls -l /mnt/c/Users/Admin/projects/NetworkLabs/lab4/evidence/pcaps/normal.pcap
+-rwxrwxrwx 1 andrii andrii 2811 Nov 20 21:17 /mnt/c/Users/Admin/projects/NetworkLabs/lab4/evidence/pcaps/normal.pcap

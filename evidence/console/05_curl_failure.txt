@@ -1,7 +1,7 @@
 andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ curl -i http://127.0.0.1:8080/
 HTTP/1.1 502 Bad Gateway
 Server: nginx/1.31.6
-Date: Fri, 20 Nov 2026 15:24:42 GMT
+Date: Fri, 20 Nov 2026 21:17:53 GMT
 Content-Type: text/html
 Content-Length: 157
 Connection: keep-alive
@@ -13,3 +13,35 @@ Connection: keep-alive
 <hr><center>nginx/1.31.6</center>
 </body>
 </html>
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ cd /mnt/c/Users/Admin/projects/NetworkLabs/lab1/code && docker compose logs --tail=30 proxy
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: signal 17 (SIGCHLD) received from 160
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 159 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 160 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 161 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 169 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 172 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: signal 29 (SIGIO) received
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: signal 17 (SIGCHLD) received from 159
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 163 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 171 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: signal 29 (SIGIO) received
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: signal 17 (SIGCHLD) received from 166
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 157 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 166 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: signal 29 (SIGIO) received
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: signal 17 (SIGCHLD) received from 162
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 162 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: worker process 168 exited with code 0
+proxy  | 2026/11/20 21:17:51 [notice] 1#1: signal 29 (SIGIO) received
+proxy  | 2026/11/20 21:17:52 [notice] 1#1: signal 17 (SIGCHLD) received from 158
+proxy  | 2026/11/20 21:17:52 [notice] 1#1: worker process 158 exited with code 0
+proxy  | 2026/11/20 21:17:52 [notice] 1#1: signal 29 (SIGIO) received
+proxy  | 2026/11/20 21:17:52 [notice] 1#1: signal 17 (SIGCHLD) received from 164
+proxy  | 2026/11/20 21:17:52 [notice] 1#1: worker process 164 exited with code 0
+proxy  | 2026/11/20 21:17:52 [notice] 1#1: signal 29 (SIGIO) received
+proxy  | 2026/11/20 21:17:53 [error] 185#185: *49 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.3:8080/", host: "127.0.0.1:8080"
+proxy  | 2026/11/20 21:17:53 [warn] 185#185: *49 upstream server temporarily disabled while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.3:8080/", host: "127.0.0.1:8080"
+proxy  | 172.29.0.1 - - [20/Nov/2026:21:17:53 +0000] "GET / HTTP/1.1" 502 157 "-" "curl/8.5.0" "-"
+proxy  | 2026/11/20 21:17:53 [error] 185#185: *49 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.2:8080/", host: "127.0.0.1:8080"
+proxy  | 2026/11/20 21:17:53 [warn] 185#185: *49 upstream server temporarily disabled while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.2:8080/", host: "127.0.0.1:8080"

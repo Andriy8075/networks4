@@ -1,0 +1,34 @@
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker run -d --name lab4-cap-db --network container:db -v /mnt/c/Users/Admin/projects/NetworkLabs/lab4/evidence/pcaps:/pcaps nicolaka/netshoot tcpdump -i any -n -U -w /pcaps/database.pcap
+27b3f865e66db5577cb9c5923a404397be64f5a4fef4d564dc368a4c9e8d73fc
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker logs lab4-cap-db
+tcpdump: WARNING: any: That device doesn't support promiscuous mode
+(Promiscuous mode not supported on the "any" device)
+tcpdump: listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144 bytes
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ curl -i http://127.0.0.1:8080/
+HTTP/1.1 200 OK
+Server: nginx/1.31.6
+Date: Fri, 20 Nov 2026 21:17:49 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 40
+Connection: keep-alive
+
+Hello from Flask App! Visit count: 2889
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker stop lab4-cap-db
+lab4-cap-db
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker logs lab4-cap-db
+tcpdump: WARNING: any: That device doesn't support promiscuous mode
+(Promiscuous mode not supported on the "any" device)
+tcpdump: listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144 bytes
+13 packets captured
+23 packets received by filter
+0 packets dropped by kernel
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker rm lab4-cap-db
+lab4-cap-db
+
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ ls -l /mnt/c/Users/Admin/projects/NetworkLabs/lab4/evidence/pcaps/database.pcap
+-rwxrwxrwx 1 andrii andrii 1248 Nov 20 21:17 /mnt/c/Users/Admin/projects/NetworkLabs/lab4/evidence/pcaps/database.pcap
