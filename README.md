@@ -17,3 +17,6 @@
 - `nginx.conf.broken` — зламана конфігурація Nginx
 - `was_became.txt` — зміна конфігурації «було → стало»
 - `proxy_log_failure.txt` — фрагмент журналу Nginx
+
+Код першої лабораторної роботи, трафік якої аналізувався, можна знайти в іншому GitHub-репозиторії за посиланням
+[https://github.com/Andriy8075/networks1](https://github.com/Andriy8075/networks1)
