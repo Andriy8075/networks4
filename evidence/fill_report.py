@@ -426,7 +426,16 @@ def main():
         bold_lead="Інтерпретація.",
     )
     label(doc, "Відповідь curl (очікується 502):")
-    one_cell(doc, read_text(CONSOLE / "05_curl_failure.txt", 1200))
+    one_cell(doc, read_text(CONSOLE / "05_curl_failure.txt", 2000))
+    label(doc, "Журнал Nginx (Connection refused на upstream :8080 і access-лог 502):")
+    one_cell(doc, read_text(CONSOLE / "05_nginx_journal_502.txt", 4500))
+    body(
+        doc,
+        " У error-лозі видно connect() failed (111: Connection refused) while connecting to upstream "
+        "з адресою http://172.29.0.x:8080/. У access-лозі той самий запит записаний як "
+        "\"GET / HTTP/1.1\" 502. Це узгоджується з PCAP: SYN на :8080, RST/ACK, потім HTTP 502 клієнту.",
+        bold_lead="Інтерпретація.",
+    )
     grid(
         doc,
         [
@@ -436,13 +445,11 @@ def main():
             ["№ пакета SYN на wrong port", "6 (також 8/9 на другу репліку)"],
             ["№ пакета RST/ACK", "7 (також 10)"],
             ["Адреса:порт, куди стукав проксі", "172.29.0.3:8080 і 172.29.0.2:8080"],
-            ["Порт у журналі Nginx", "upstream http://…:8080/ (див. capture_failure / compose logs)"],
+            ["Порт у журналі Nginx", "upstream http://172.29.0.x:8080/ (див. журнал вище)"],
             ["Фактичний listen застосунку", "8000"],
             ["Помилковий рядок конфігу", "proxy_pass http://app:8080;"],
         ],
     )
-    label(doc, "Фрагмент журналу Nginx:")
-    one_cell(doc, read_text(NGINX / "proxy_log_failure.txt", 2200))
     label(doc, "Знімок інтерфейсу:")
     picture(doc, "11-failure-502.png")
     picture(doc, "12-failure-rst.png")

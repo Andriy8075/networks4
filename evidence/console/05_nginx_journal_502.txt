@@ -1,0 +1,7 @@
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker compose logs --tail=100 proxy
+# фрагмент: рядки error/access про upstream :8080 і HTTP 502
+proxy  | 2026/11/20 23:51:37 [error] 387#387: *104 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.2:8080/", host: "127.0.0.1:8080"
+proxy  | 2026/11/20 23:51:37 [warn] 387#387: *104 upstream server temporarily disabled while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.2:8080/", host: "127.0.0.1:8080"
+proxy  | 2026/11/20 23:51:37 [error] 387#387: *104 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.3:8080/", host: "127.0.0.1:8080"
+proxy  | 2026/11/20 23:51:37 [warn] 387#387: *104 upstream server temporarily disabled while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.3:8080/", host: "127.0.0.1:8080"
+proxy  | 172.29.0.1 - - [20/Nov/2026:23:51:37 +0000] "GET / HTTP/1.1" 502 157 "-" "curl/8.5.0" "-"

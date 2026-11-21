@@ -1,51 +1,7 @@
-andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker compose logs --tail=50 proxy
-proxy  | 2026/11/20 15:24:14 [notice] 27#27: exit
-proxy  | 2026/11/20 15:24:14 [notice] 34#34: exit
-proxy  | 2026/11/20 15:24:14 [notice] 35#35: exit
-proxy  | 2026/11/20 15:24:14 [notice] 30#30: exit
-proxy  | 2026/11/20 15:24:14 [notice] 31#31: exit
-proxy  | 2026/11/20 15:24:14 [notice] 32#32: gracefully shutting down
-proxy  | 2026/11/20 15:24:14 [notice] 32#32: exiting
-proxy  | 2026/11/20 15:24:14 [notice] 36#36: exit
-proxy  | 2026/11/20 15:24:14 [notice] 32#32: exit
-proxy  | 2026/11/20 15:24:14 [notice] 33#33: gracefully shutting down
-proxy  | 2026/11/20 15:24:14 [notice] 33#33: exiting
-proxy  | 2026/11/20 15:24:14 [notice] 33#33: exit
-proxy  | 2026/11/20 15:24:14 [notice] 29#29: exiting
-proxy  | 2026/11/20 15:24:14 [notice] 29#29: exit
-proxy  | 2026/11/20 15:24:14 [notice] 23#23: exit
-proxy  | 2026/11/20 15:24:14 [notice] 26#26: exit
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 17 (SIGCHLD) received from 27
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 27 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 29 (SIGIO) received
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 17 (SIGCHLD) received from 32
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 21 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 22 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 23 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 24 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 25 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 26 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 28 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 29 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 30 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 31 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 32 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 29 (SIGIO) received
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 17 (SIGCHLD) received from 22
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 17 (SIGCHLD) received from 35
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 35 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 29 (SIGIO) received
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 17 (SIGCHLD) received from 36
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 36 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 29 (SIGIO) received
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 17 (SIGCHLD) received from 33
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 33 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 29 (SIGIO) received
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 17 (SIGCHLD) received from 34
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: worker process 34 exited with code 0
-proxy  | 2026/11/20 15:24:14 [notice] 1#1: signal 29 (SIGIO) received
-proxy  | 2026/11/20 15:24:42 [error] 49#49: *9 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.2:8080/", host: "127.0.0.1:8080"
-proxy  | 2026/11/20 15:24:42 [warn] 49#49: *9 upstream server temporarily disabled while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.2:8080/", host: "127.0.0.1:8080"
-proxy  | 2026/11/20 15:24:42 [error] 49#49: *9 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.3:8080/", host: "127.0.0.1:8080"
-proxy  | 2026/11/20 15:24:42 [warn] 49#49: *9 upstream server temporarily disabled while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.3:8080/", host: "127.0.0.1:8080"
-proxy  | 172.29.0.1 - - [20/Nov/2026:15:24:42 +0000] "GET / HTTP/1.1" 502 157 "-" "curl/8.5.0" "-"
+andrii@DESKTOP-7BD93CN:/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code$ docker compose logs --tail=100 proxy
+# фрагмент: рядки error/access про upstream :8080 і HTTP 502
+proxy  | 2026/11/20 23:51:37 [error] 387#387: *104 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.2:8080/", host: "127.0.0.1:8080"
+proxy  | 2026/11/20 23:51:37 [warn] 387#387: *104 upstream server temporarily disabled while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.2:8080/", host: "127.0.0.1:8080"
+proxy  | 2026/11/20 23:51:37 [error] 387#387: *104 connect() failed (111: Connection refused) while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.3:8080/", host: "127.0.0.1:8080"
+proxy  | 2026/11/20 23:51:37 [warn] 387#387: *104 upstream server temporarily disabled while connecting to upstream, client: 172.29.0.1, server: , request: "GET / HTTP/1.1", upstream: "http://172.29.0.3:8080/", host: "127.0.0.1:8080"
+proxy  | 172.29.0.1 - - [20/Nov/2026:23:51:37 +0000] "GET / HTTP/1.1" 502 157 "-" "curl/8.5.0" "-"
