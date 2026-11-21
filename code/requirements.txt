@@ -1,2 +1,0 @@
-# Optional: only needed if tshark is unavailable and scapy fallback is used.
-scapy>=2.5.0
